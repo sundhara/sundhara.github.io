@@ -43,6 +43,8 @@
 </div> <!-- /container -->
 
 <script>
+	
+var contin = 1;
 var second = 0;
 var index = 1;
 var words = ["大","哥","二","弟","中","四","小","手","一","三","我","七","朋","数","友","八","五","九","六","十",
@@ -63,23 +65,39 @@ $("#wAmount").html(words.length);
 $("#wordarea1").html(words[index]);
 function iknow(){
 	index++;
-  $("#wIndex").html(index);
-	$("#wordarea1").html(words[index]);
+	if(index == words.length){
+		contin = 0;
+		alert("学习完成，用了" + second + "秒，认识了" + (words.length - uindex) + "个字，不认识" +  uindex + "个字！");
+	}else{
+    $("#wIndex").html(index);
+	  $("#wordarea1").html(words[index]);
+	}
 }
 
 function idontknow(){
-	uwords[uindex++] = words[index];
-	iknow();
-	var unknow = "";
-	for(var i = 0; i < uindex; i++){
-		unknow += uwords[i] + " ";
+	if(index == words.length-1){
+		contin = 0;
+		uwords[uindex++] = words[index++];
+		alert("学习完成，用了" + second + "秒，认识了" + (words.length - uindex) + "个字，不认识" +  uindex + "个字！");
+		var unknow = "";
+		for(var i = 0; i < uindex; i++){
+			unknow += uwords[i] + " ";
+		}
+		$("#uwordarea1").html(unknow);
+	}else if(index < words.length-1){
+		uwords[uindex++] = words[index];
+		iknow();
+		var unknow = "";
+		for(var i = 0; i < uindex; i++){
+			unknow += uwords[i] + " ";
+		}
+		$("#uwordarea1").html(unknow);
 	}
-	$("#uwordarea1").html(unknow);
 }
 function countTime(){
 	second++;
   $("#wTime").html(second);
-  setTimeout(countTime,1000);
+  if(contin == 1) setTimeout(countTime,1000);
 }
 setTimeout(countTime,1000);
 					   
