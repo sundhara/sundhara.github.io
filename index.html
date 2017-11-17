@@ -12,16 +12,18 @@
 <div class="container">
       <div class="header clearfix">
         <h3 class="text-muted">识字小测验</h3>
-          <div class="nav right">
+        <div class="row">
+          <div class="col-sm-6">
             计时：<span id="wTime">0</span>秒
           </div>
-          <div class="nav right">
+          <div class="col-sm-6">
             第<span id="wIndex"></span>个/共<span id="wAmount"></span>个
+          </div>
           </div>
       </div>
 
-      <div class="row" style="height:200px;">
-        <span id="wordarea"></span>
+      <div class="row" style="height:220px;">
+        <p><span id="wordarea1" style="font-family:”Microsoft YaHei”,Arial,Helvetica,sans-serif,”宋体”;font-size:160px; "> </span></p>
       </div>
       <div class="row">
         <p><a class="btn btn-lg btn-success" href="#" role="button" onclick="javascript:iknow();">认识啦！</a></p>
@@ -49,12 +51,11 @@ var words = ["大","哥","二","弟","中","四","小","手","一","三","我","
 					   "到","牙","呀","早","圆","狐","再","狸","见","理"];
 $("#wIndex").html(index);
 $("#wAmount").html(words.length);
-$("wordarea").html(words[index]);
-
+$("#wordarea1").html(words[index]);
 function iknow(){
 	index++;
   $("#wIndex").html(index);
-	$("wordarea").html(words[index]);
+	$("#wordarea1").html(words[index]);
 }
 
 function countTime(){
