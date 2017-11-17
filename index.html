@@ -10,8 +10,16 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <div class="container">
+
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#home">识字测验</a></li>
+  <li><a href="#profile">范围设置</a></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+  	
       <div class="header clearfix">
-        <h3 class="text-muted">识字小测验</h3>
         <div class="row">
           <div class="col-sm-6">
             计时：<span id="wTime">0</span>秒
@@ -30,67 +38,98 @@
         	<a class="btn btn-lg btn-danger" href="#" role="button" onclick="javascript:idontknow();">不认识！</a></p>
       </div>
       <div class="row">
-        <p class="text-left">不熟悉的字：</p>
+        <p class="text-left">不熟悉的字(<span id="ucount">0</span>)：</p>
      </div>
       <div class="row">
-        <p class="text-left" id="uwordarea1"></p>
+        <p class="text-left text-success" id="uwordarea1"></p>
      </div>
+      <div class="row">
+        <p class="text-left">熟悉的字(<span id="fcount">0</span>)：</p>
+     </div>
+      <div class="row">
+        <p class="text-left text-warning" id="fwordarea1"></p>
+     </div>
+
+  	
+  </div>
+  <div class="tab-pane center" id="profile">
+  	<form id="myform" name="myform" >
+  	<div style="width:100%;text-align:center">
+  		<textarea autofocus rows="20" cols="30" id="wcontent" name="wcontent"></textarea>
+  		</div>
+  	</form>
+  	
+  	
+  	
+  </div>
+</div>
+
 
       <footer class="footer">
         <p class="text-right">&copy; 2017 Frank Dailin Yang</p>
       </footer>
 
-</div> <!-- /container -->
 
 <script>
 	
-var contin = 1;
+var contin = 0;
 var second = 0;
 var index = 1;
-var words = ["大","哥","二","弟","中","四","小","手","一","三","我","七","朋","数","友","八","五","九","六","十",
-					   "个","找","山","动","家","出","歌","少","舞","干","象","才","子","马","为","日","长","金","妈","土",
-					   "有","伞","头","天","下","气","雨","风","人","云","星","月","生","可","入","亮","米","贝","曲","快",
-					   "想","太","睡","晚","了","安","你","女","明","目","猴","么","笑","要","开","香","心","关","什","门",
-					   "打","半","电","点","话","里","角","舌","两","石","直","儿","是","口","虫","对","竹","正","会","苗",
-					   "萝","黄","帮","来","卜","拔","巾","多","狗","毛","鸟","声","树","哭","上","去","的","乌","叫","木",
-					   "当","无","们","比","同","着","在","古","起","诗","放","看","回","谁","蝴","高","老","胡","都","湖",
-					   "叔","不","田","得","地","鸭","面","虾","鸡","藏","轻","宝","向","重","外","工","桥","爱","给","兴",
-					   "学","父","业","母","本","房","书","借","包","尺","乡","鱼","村","水","林","禾","青","从","草","果",
-					   "圈","右","成","猪","先","兔","左","牛","边","羊","闪","问","夜","间","空","闯","好","坏","情","晴",
-					   "到","牙","呀","早","圆","狐","再","狸","见","理"];
+var defaultcontent= "大哥二弟中四小手一三我七朋数友八五九六十个找山动家出歌少舞干象才子马为日长金妈土有伞头天下气雨风人云星月生可入亮米贝曲快想太睡晚了安你女明目猴么笑要开香心关什门打半电点话里角舌两石直儿是口虫对竹正会苗萝黄帮来卜拔巾多狗毛鸟声树哭上去的乌叫木当无们比同着在古起诗放看回谁蝴高老胡都湖叔不田得地鸭面虾鸡藏轻宝向重外工桥爱给兴学父业母本房书借包尺乡鱼村水林禾青从草果圈右成猪先兔左牛边羊闪问夜间空闯好坏情晴到牙呀早圆狐再狸见理";
+var content= "";
+var words = [];
 var uwords = [];
 var uindex = 0;
+var fwords = [];
+var findex = 0;
 $("#wIndex").html(index);
 $("#wAmount").html(words.length);
 $("#wordarea1").html(words[index]);
 function iknow(){
 	index++;
-	if(index == words.length){
+	if(index >= words.length){
 		contin = 0;
+		fwords[findex++] = words[index++];
+		var know = "";
+		for(var i = 0; i < findex; i++){
+			know += fwords[i] + " ";
+		}
+		$("#fcount").html(findex);
+		$("#fwordarea1").html(know);
 		alert("学习完成，用了" + second + "秒，认识了" + (words.length - uindex) + "个字，不认识" +  uindex + "个字！");
 	}else{
     $("#wIndex").html(index);
 	  $("#wordarea1").html(words[index]);
+		fwords[findex++] = words[index++];
+		var know = "";
+		for(var i = 0; i < findex; i++){
+			know += fwords[i] + " ";
+		}
+		$("#fcount").html(findex);
+		$("#fwordarea1").html(know);
 	}
 }
 
 function idontknow(){
-	if(index == words.length-1){
+	if(index >= words.length-1){
 		contin = 0;
-		uwords[uindex++] = words[index++];
 		alert("学习完成，用了" + second + "秒，认识了" + (words.length - uindex) + "个字，不认识" +  uindex + "个字！");
+		uwords[uindex++] = words[index++];
 		var unknow = "";
 		for(var i = 0; i < uindex; i++){
 			unknow += uwords[i] + " ";
 		}
+		$("#ucount").html(uindex);
 		$("#uwordarea1").html(unknow);
 	}else if(index < words.length-1){
-		uwords[uindex++] = words[index];
-		iknow();
+		uwords[uindex++] = words[index++];
+    $("#wIndex").html(index);
+	  $("#wordarea1").html(words[index]);
 		var unknow = "";
 		for(var i = 0; i < uindex; i++){
 			unknow += uwords[i] + " ";
 		}
+		$("#ucount").html(uindex);
 		$("#uwordarea1").html(unknow);
 	}
 }
@@ -99,8 +138,60 @@ function countTime(){
   $("#wTime").html(second);
   if(contin == 1) setTimeout(countTime,1000);
 }
-setTimeout(countTime,1000);
-					   
+
+document.myform.wcontent.value=defaultcontent;
+
+
+  $(function () {
+    $('#myTab a:last').tab('show');
+  })
+  $('#myTab a').click(function (e) {
+  e.preventDefault();
+  if($(e.target).text()=="识字测验"){
+		if(document.myform.wcontent.value!=content){
+			content = document.myform.wcontent.value;
+			second = 0;
+			index = 1;
+			words = [];
+			for(var i = 0; i < content.length; i++){
+				if(words.length == 0){
+				 	words.push(content.substring(i, i+1));
+				 }else{
+				 	var pos = randomNum(0, words.length);
+				 	words.splice(pos, 0, content.substring(i, i+1));
+				 }
+			}
+      uwords = [];
+      uindex = 0;
+      $("#wIndex").html(index);
+      $("#wAmount").html(words.length);
+      $("#wordarea1").html(words[index]);
+
+      if(contin == 0){
+  			contin = 1;
+	  		setTimeout(countTime,1000);
+      }
+		}  	
+  }else{
+  	
+  }
+  $(this).tab('show');
+})
+
+//生成从minNum到maxNum的随机数
+function randomNum(minNum,maxNum){ 
+    switch(arguments.length){ 
+        case 1: 
+            return parseInt(Math.random()*minNum+1,10); 
+        break; 
+        case 2: 
+            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+        break; 
+            default: 
+                return 0; 
+            break; 
+    } 
+}
 </script>
 </body>
 </html>
