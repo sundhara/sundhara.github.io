@@ -62,7 +62,6 @@ function countTime(){
   $("#wTime").html(second);
   setTimeout(countTime,1000);
 }
-setTimeout(countTime,1000);
 					   
 </script>
 </body>
