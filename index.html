@@ -47,10 +47,19 @@
       <li><a id="b4" href="#pageone">第四册<span class="ui-li-count">80</span></a></li>
       <li><a id="b5" href="#pageone">第五册<span class="ui-li-count">96</span></a></li>
       <li><a id="b6" href="#pageone">第六册<span class="ui-li-count">96</span></a></li>
-      <li><a id="b0" href="#pageone">交作业<span class="ui-li-count">18</span></a></li>
+      <li><a id="b0" href="#pageone">交作业</a></li>
     </ul>
+	<table data-role="table" class="ui-responsive">
+  <tbody>
+    <tr>
+      <td>第</td><td><input type="number" name="ceindex" min="1" max="6" value="6" maxlength="1"/></td><td>册</td>
+      <td>从</td><td><input type="number" name="cestart" min="1" max="96" value="1" maxlength="2"/></td><td>开始</td>
+      <td>共</td><td><input type="number" name="cecount" min="1" max="96" value="18" maxlength="2"/></td><td>字</td>
+    </tr>
+  </tbody>
+</table>
   </div>
-<!--  
+<!--
   <div data-role="content">
   	<table width="100%">
   		<tr><td align="center" height="38px"><a id="b1" href="#pageone">第一册</a></td></tr>
@@ -61,7 +70,7 @@
   		<tr><td align="center" height="38px"><a id="b0" href="#pageone">交作业</a></td></tr>
   	</table>
   </div>
--->  
+-->
 </div>
 <script>
 var words = [];
@@ -100,9 +109,9 @@ function backone(){
 		}else{
 			uindex--;
 			uwords[uindex] = '';
-		}		
+		}
 		windex--;
-	}	
+	}
 }
 
 function knowtheword(){
